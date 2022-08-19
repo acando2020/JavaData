@@ -33,4 +33,8 @@ public class BookService {
      public Optional<Libro> findById(Long id){
         return repositoryBook.findById(id);
     }
+     
+     public void deleteById(Long id){
+         repositoryBook.deleteById(id);
+     }
 }

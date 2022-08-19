@@ -23,8 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
-
+@CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false") 
 @RestController
 @RequestMapping("/api/libro/")
 public class DataGridREST {
@@ -40,7 +41,7 @@ public class DataGridREST {
         try {
             return ResponseEntity.created(new URI("/api/libro"+temporal.getId())).body(temporal);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).build();
         }
     }
     
@@ -71,10 +72,10 @@ public class DataGridREST {
         return ResponseEntity.ok(bookService.getAllLibros());
     }*/
     
-    @DeleteMapping
-    private ResponseEntity<Void> EliminarLibro(@RequestBody Libro libro){
-        bookService.delete(libro);
-        return ResponseEntity.ok().build();
+    @DeleteMapping("/delete/{id}")
+    private ResponseEntity<Boolean> EliminarLibro(@PathVariable("id") Long id){
+        bookService.deleteById(id);
+       return ResponseEntity.ok(!(bookService.findById(id)!=null));
     }
     
     

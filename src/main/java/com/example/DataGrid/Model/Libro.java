@@ -10,13 +10,27 @@ public class Libro {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;    
-    private String namebook;   
-    private String descriptionbook;   
+    @Column(name = "id", nullable=false, unique=true, updatable=false)
+    private long id;
+    
+    @Column(name = "namebook", unique=true, length=150, nullable=false)
+    private String namebook;
+    
+    @Column(name = "descriptionbook", unique=false, length=300, nullable=true)
+    private String descriptionbook;
+    
+    @Column(name = "authorbook", unique=false, length=150, nullable=false)
     private String authorbook;
+    
+    @Column(name = "datepublishbook", unique=false, nullable=true)
     private Date datepublishbook;
+    
+    @Column(name = "numberbook", unique=false, nullable=true)
     private int numberbook;
+    
+    @Column(name = "pricebook", unique=false, nullable=true)
     private double pricebook;    
+   
     
     @Override
     public String toString() {
